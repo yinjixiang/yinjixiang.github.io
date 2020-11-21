@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>指令系统的寻址方式 - Hexo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="寻址方式- - - -指令中说明操作数所在地址的方法，...">
+  <meta name="author" content="Daermao">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">指令系统的寻址方式</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">指令系统的寻址方式</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>March 21, 2020</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1829</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>寻址方式- - - -指令中说明操作数所在地址的方法，寻址方式所要解决的主要问题就是如何在整个存储器和寄存器的寻址空间内快速的找到指定的地址单元，共有7种寻址方式</p>
+<h4 id="1、寄存器寻址方式"><a href="#1、寄存器寻址方式" class="headerlink" title="1、寄存器寻址方式"></a>1、寄存器寻址方式</h4><p><strong>指令中的操作数为某个寄存器的内容</strong></p>
+<ul>
+<li>例如：<code>MOV A, Rn  </code>;(Rn) &rarr; A, n=0~7</li>
+</ul>
+<p>把寄存器Rn中的操作数送入累加器A中</p>
+<p><strong>寻址范围：</strong></p>
+<ol>
+<li>4组通用工作寄存区共32个工作寄存区</li>
+<li>部分特殊功能寄存器，例如A、B 以及数据指针寄存器 DPTR 等</li>
+</ol>
+<h4 id="2、直接寻址方式"><a href="#2、直接寻址方式" class="headerlink" title="2、直接寻址方式"></a>2、直接寻址方式</h4><p><strong>指令中直接给出操作数的单元地址，该单元地址中的内容就是操作数，直接的操作数单元地址用direct表示</strong></p>
+<ul>
+<li>例如：<code>MOV A, direct </code> </li>
+</ul>
+<p>direct 就是操作数的单元地址</p>
+<ul>
+<li>例如：<code>MOV A, 40H </code> </li>
+</ul>
+<p>表示把内部 RAM  40H  单元  direct 的内容传送到 A ，指令中源操作数（右边的操作数）采用的是直接寻址方式</p>
+<p><strong>指令中的两个操作数都可由直接寻址方式给出</strong></p>
+<ul>
+<li>例如：<code>MOV 42H, 62H </code></li>
+</ul>
+<p>把片中 RAM 中 62H  单元的内容送到 RAM 中的 42H 单元中</p>
+<p><strong>寻址范围：</strong></p>
+<ol>
+<li>内部RAM的128个单元</li>
+<li>特殊功能寄存器，除了以单元地址的形式外，还可用寄存器符号的形式给出, 例如：<code>MOV A, 80H</code>  与  <code>MOV A, P0</code> 是等价的</li>
+</ol>
+<p><em>直接寻址是访问片内所有特殊功能寄存器的唯一寻址方式</em></p>
+<h4 id="3、寄存器的间接寻址方式"><a href="#3、寄存器的间接寻址方式" class="headerlink" title="3、寄存器的间接寻址方式"></a>3、寄存器的间接寻址方式</h4><p><strong>寄存器中存的是操作数地址，即先从寄存器中找到操作数的地址，再按该地址找到操作数，在寄存器名称前面加前缀标志 @</strong></p>
+<ul>
+<li>例如：<code>MOV A, @Ri  ; i=0 或 1</code></li>
+</ul>
+<p>其中，R i的内容为 40H ，即把内部 RAM  40H  地址单元中<br>的内容传送给  A </p>
+<p><strong>寻址范围：</strong></p>
+<ol>
+<li>访问内部RAM低128个单元，其通用形式为 @Ri</li>
+<li>对片外数据存储器的64K字节的间接寻址，例如： <code>MOVX A, @DPTR</code></li>
+<li>片外数据存储器的低256字节，例如：<code>MOVX A, @Ri</code></li>
+<li>堆栈区</li>
+</ol>
+<h4 id="4、立即数寻址方式"><a href="#4、立即数寻址方式" class="headerlink" title="4、立即数寻址方式"></a>4、立即数寻址方式</h4><p><strong>直接在指令中给出操作数 — 也称立即数。为了与直接寻址指令中的直接地址加以区别，需在操作数前加前缀标志  #</strong></p>
+<ul>
+<li>例如：<code>MOV A, #40H   ; 立即数40H送累加器A</code></li>
+</ul>
+<p>第一个字节是操作码，第二字节是立即数，就是放在程序存储器内的常数</p>
+<h4 id="5、基址寄存器加变址寄存器间址寻址方式"><a href="#5、基址寄存器加变址寄存器间址寻址方式" class="headerlink" title="5、基址寄存器加变址寄存器间址寻址方式"></a>5、基址寄存器加变址寄存器间址寻址方式</h4><p><strong>以 DPTR  或  PC  作为基址寄存器，以累加器 A 作为变址寄存器，两者内容相加形成的 16 位地址作为目的地址进行寻址</strong></p>
+<ul>
+<li>例如：<code>MOVC A, @A+DPTR </code></li>
+</ul>
+<p>其中，(A)=05H,  (DPTR)=0400H , 指令执行结果是把程序存储器 0405H 单元的内容传送给 A </p>
+<p><strong>本寻址方式的指令只有三条</strong>：</p>
+<figure class="highlight plain"><figcaption><span>Language</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Assembly">MOVC A, @A+DPTR<br>MOVC A, @A+PC<br>JMP @A+DPR<br></code></pre></td></tr></table></figure>
+
+<p>前两条指令适用于读程序存储器中固定的数据，例如，将固定的、按一定顺序排列的表格存放在程序存储器中，在程序运行中由A的动态参量来确定读取对应的表格参数，第3条为散转指令，A中内容为程序运行后的动态结果，可根据A中不同内容，实现跳向不同程序入口的跳转</p>
+<h4 id="6、相对寻址方式"><a href="#6、相对寻址方式" class="headerlink" title="6、相对寻址方式"></a>6、相对寻址方式</h4><p>解决程序转移。该寻址是以该转移指令的地址 PC 值加上它的字节数，再加上相对偏移量 rel，形成新的转移目的地址，从而程序转移到该目的地址。转移的目的地址用下式计算：</p>
+<p>**目的地址=转移指令所在的地址+转移指令字节数+ rel **</p>
+<p>偏移量 rel 是带符号8位二进制补码数，范围是：–128～+127</p>
+<p>程序转移范围是以转移指令的下条指令首地址为基准地址，相对偏移在–128～+127之间</p>
+<p>例如：<code>SJMP rel</code></p>
+<p>程序要转移到该指令的 PC 值加 3 再加上 rel 的目的地址处。编写程序时，只需在转移指令中直接写要转向的地址标号</p>
+<h4 id="7、位寻址"><a href="#7、位寻址" class="headerlink" title="7、位寻址"></a>7、位寻址</h4><p><strong>对内部RAM和特殊功能寄存器具有位寻址功能的某位内容进行置1和清0操作。</strong><br>**位地址一般以直接位地址给出，位地址符号为 bit **</p>
+<ul>
+<li>例如：<code>MOV C, bit</code>    具体指令：<code>MOV C,40H</code></li>
+</ul>
+<p>把位地址为40H的值送到进位位 C</p>
+<p><strong>寻址范围：</strong></p>
+<ol>
+<li>内部RAM中的位寻址区，位有两种表示方法，例如， 40H 另一种是单元地址加上位，例如，   (28H).0 ，指的是 28H 单元中的最低位，它们是等价的</li>
+<li>特殊功能寄存器中的可寻址位</li>
+</ol>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Daermao</li>
+    <li><strong>本文链接：</strong><a href="https://github.com/yinjixiang/yinjixiang.github.io.git/2020/03/21/singlechip/index.html" title="https:&#x2F;&#x2F;github.com&#x2F;yinjixiang&#x2F;yinjixiang.github.io.git&#x2F;2020&#x2F;03&#x2F;21&#x2F;singlechip&#x2F;index.html">https:&#x2F;&#x2F;github.com&#x2F;yinjixiang&#x2F;yinjixiang.github.io.git&#x2F;2020&#x2F;03&#x2F;21&#x2F;singlechip&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="tag">单片机</a></li></ul>
+        
+  <nav class="nav">
+    <a href="/2020/11/12/Python%E7%88%AC%E8%99%AB/"><i class="iconfont iconleft"></i>Python爬虫</a>
+    <a href="/2020/03/21/prevention/">Prevention of new coronavirus<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/izhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
