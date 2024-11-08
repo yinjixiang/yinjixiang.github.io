@@ -20,23 +20,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
+    <meta name="description" content="I2C详解与Verilog实现一、I2C接口介绍1.1 简介 IIC(Inter-Integrated Circuit)总线是一种由PHILIPS公司开发的两线式串行总线，是一种同步、半双工的通信总线，用于连接微控制器及其外围设备。I2C总线产生于在80年代，最初为音频和视频设备开发，如今主要在服务器管理中使用，其中包括单个组件状态的通信。例如管理员可对各个组件进行查询，以管理系统的配置或掌握组件">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2024/11/08/I2C%E8%AF%A6%E8%A7%A3%E4%B8%8EVerilog%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="I2C详解与Verilog实现一、I2C接口介绍1.1 简介 IIC(Inter-Integrated Circuit)总线是一种由PHILIPS公司开发的两线式串行总线，是一种同步、半双工的通信总线，用于连接微控制器及其外围设备。I2C总线产生于在80年代，最初为音频和视频设备开发，如今主要在服务器管理中使用，其中包括单个组件状态的通信。例如管理员可对各个组件进行查询，以管理系统的配置或掌握组件">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/82b9962d635c2a63d416701a3aa9f8e7.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/4f836deb6cff019628f7b81bc35deb7e.jpeg">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7fdcda2dcc98354a532deb56621ec30f.png">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/2504661/202407/2504661-20240729164510784-680193053.jpg">
+<meta property="og:image" content="https://img2023.cnblogs.com/blog/2504661/202407/2504661-20240729164513391-2141595289.jpg">
+<meta property="article:published_time" content="2024-11-08T14:05:59.150Z">
+<meta property="article:modified_time" content="2024-11-06T07:48:00.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/82b9962d635c2a63d416701a3aa9f8e7.jpeg">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2024/11/08/I2C%E8%AF%A6%E8%A7%A3%E4%B8%8EVerilog%E5%AE%9E%E7%8E%B0/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/11/08/I2C%E8%AF%A6%E8%A7%A3%E4%B8%8EVerilog%E5%AE%9E%E7%8E%B0/","path":"2024/11/08/I2C详解与Verilog实现/","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hexo</title>
+<title> | Hexo</title>
   
 
 
@@ -67,7 +77,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Hexo</h1>
+      <p class="site-title">Hexo</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -99,7 +109,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -112,6 +122,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I2C%E8%AF%A6%E8%A7%A3%E4%B8%8EVerilog%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">I2C详解与Verilog实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81I2C%E6%8E%A5%E5%8F%A3%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">一、I2C接口介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-I2C%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 I2C总线协议详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-I2C%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 I2C的状态</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81IIC%E7%9A%84Verilog%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">二、IIC的Verilog简单实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 程序设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E7%8A%B6%E6%80%81%E6%9C%BA%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 状态机设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E7%A8%8B%E5%BA%8F%E6%BA%90%E7%A0%81"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 程序源码</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -153,16 +164,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/11/08/I2C%E8%AF%A6%E8%A7%A3%E4%B8%8EVerilog%E5%AE%9E%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,13 +188,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="name" content=" | Hexo">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/11/08/I2C%E8%AF%A6%E8%A7%A3%E4%B8%8EVerilog%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -212,7 +224,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="I2C详解与Verilog实现"><a href="#I2C详解与Verilog实现" class="headerlink" title="I2C详解与Verilog实现"></a>I2C详解与Verilog实现</h2><h3 id="一、I2C接口介绍"><a href="#一、I2C接口介绍" class="headerlink" title="一、I2C接口介绍"></a>一、I2C接口介绍</h3><h4 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h4><p> IIC(Inter-Integrated Circuit)总线是一种由PHILIPS公司开发的<strong>两线式串行总线</strong>，是一种<strong>同步、半双工</strong>的通信总线，用于连接微控制器及其外围设备。I2C总线产生于在80年代，最初为音频和视频设备开发，如今主要在服务器管理中使用，其中包括单个组件状态的通信。例如管理员可对各个组件进行查询，以管理系统的配置或掌握组件的功能状态，如电源和系统风扇。可随时监控内存、硬盘、网络、系统温度等多个参数，增加了系统的安全性，方便了管理。IIC数据<strong>传输速率</strong>有标准模式（100 kbps）、快速模式（400 kbps）和高速模式（3.4 Mbps），另外一些变种实现了低速模式（10 kbps）和快速+模式（1 Mbps）。</p>
+        <h2 id="I2C详解与Verilog实现"><a href="#I2C详解与Verilog实现" class="headerlink" title="I2C详解与Verilog实现"></a>I2C详解与Verilog实现</h2><h3 id="一、I2C接口介绍"><a href="#一、I2C接口介绍" class="headerlink" title="一、I2C接口介绍"></a>一、I2C接口介绍</h3><h4 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h4><p> IIC(Inter-Integrated Circuit)总线是一种由PHILIPS公司开发的<strong>两线式串行总线</strong>，是一种<strong>同步、半双工</strong>的通信总线，用于连接微控制器及其外围设备。I2C总线产生于在80年代，最初为音频和视频设备开发，如今主要在服务器管理中使用，其中包括单个组件状态的通信。例如管理员可对各个组件进行查询，以管理系统的配置或掌握组件的功能状态，如电源和系统风扇。可随时监控内存、硬盘、网络、系统温度等多个参数，增加了系统的安全性，方便了管理。IIC数据<strong>传输速率</strong>有标准模式（100 kbps）、快速模式（400 kbps）和高速模式（3.4 Mbps），另外一些变种实现了低速模式（10 kbps）和快速+模式（1 Mbps）。</p>
 <p>IIC总线的<strong>特点</strong>：</p>
 <ul>
 <li>简单性和有效性。由于接口直接在组件之上，因此IIC总线占用的空间非常小，减少了电路板的空间和芯片管脚的数量，降低了互联成本。总线的长度可高达25英尺，并且能够以10Kbps的最大传输速率支持40个组件。</li>
@@ -287,7 +299,6 @@
 <h4 id="2-3-程序源码"><a href="#2-3-程序源码" class="headerlink" title="2.3 程序源码"></a>2.3 程序源码</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">timescale</span> 1ns / 1ns </span><span class="comment">//仿真刻度/精度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> uii2c#</span><br><span class="line">(</span><br><span class="line"><span class="keyword">parameter</span> <span class="keyword">integer</span> WMEN_LEN = <span class="number">8&#x27;d0</span>,<span class="comment">//写长度，以字节为单位，包含器件地址</span></span><br><span class="line"><span class="keyword">parameter</span> <span class="keyword">integer</span> RMEN_LEN = <span class="number">8&#x27;d0</span>,<span class="comment">//读长度，以字节为单位，不包含器件地址</span></span><br><span class="line"><span class="keyword">parameter</span> <span class="keyword">integer</span> CLK_DIV  = <span class="number">16&#x27;d499</span><span class="comment">// I2C时钟分频系数</span></span><br><span class="line">)</span><br><span class="line">(</span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> I_clk,<span class="comment">//系统时钟输入</span></span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> I_rstn,<span class="comment">//系统复位，低电平有效</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>  O_iic_scl = <span class="number">1&#x27;b0</span>,<span class="comment">//I2C时钟SCL</span></span><br><span class="line"><span class="keyword">inout</span>  <span class="keyword">wire</span> IO_iic_sda,<span class="comment">//I2C 数据总线</span></span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> [WMEN_LEN*<span class="number">8</span>-<span class="number">1&#x27;b1</span>:<span class="number">0</span>]I_wr_data,<span class="comment">//写数据寄存器，其中WMEN_LEN设置了最大支持的数据字节数，越大占用的FPGA资源越多</span></span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> [<span class="number">7</span>:<span class="number">0</span>]I_wr_cnt,<span class="comment">//写数据计数器，代表写了多少个字节</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>  [RMEN_LEN*<span class="number">8</span>-<span class="number">1&#x27;b1</span>:<span class="number">0</span>]O_rd_data = <span class="number">0</span>,<span class="comment">//读数据寄存器，其中RMEN_LEN设置了最大支持的数据字节数，越大占用的FPGA资源越多</span></span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> [<span class="number">7</span>:<span class="number">0</span>]I_rd_cnt,<span class="comment">//读数据计数器</span></span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> I_iic_req,<span class="comment">//I_iic_req == 1 使能I2C传输</span></span><br><span class="line"><span class="keyword">input</span>  <span class="keyword">wire</span> I_iic_mode,<span class="comment">//I_iic_mode = 1 随机读   I_iic_mode = 0 读当前寄存器或者页读</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>  O_iic_busy = <span class="number">1&#x27;b0</span>,<span class="comment">//I2C控制器忙</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>  O_iic_bus_error, <span class="comment">//I2C总线，无法读到正确ACK出错</span></span><br><span class="line"><span class="keyword">output</span> <span class="keyword">reg</span>  IO_iic_sda_dg</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">localparam</span> IDLE    = <span class="number">4&#x27;d0</span>;<span class="comment">//I2C 总线空闲状态</span></span><br><span class="line"><span class="keyword">localparam</span> START   = <span class="number">4&#x27;d1</span>;<span class="comment">//I2C 总线启动</span></span><br><span class="line"><span class="keyword">localparam</span> W_WAIT  = <span class="number">4&#x27;d2</span>;<span class="comment">//I2C 总线等待写完成</span></span><br><span class="line"><span class="keyword">localparam</span> W_ACK   = <span class="number">4&#x27;d3</span>;<span class="comment">//I2C 总线等待写WACK</span></span><br><span class="line"><span class="keyword">localparam</span> R_WAIT  = <span class="number">4&#x27;d4</span>;<span class="comment">//I2C 总线等待读完成</span></span><br><span class="line"><span class="keyword">localparam</span> R_ACK   = <span class="number">4&#x27;d5</span>;<span class="comment">//I2C 总线等待读RACK</span></span><br><span class="line"><span class="keyword">localparam</span> STOP1   = <span class="number">4&#x27;d6</span>;<span class="comment">//I2C 总线产生停止位</span></span><br><span class="line"><span class="keyword">localparam</span> STOP2   = <span class="number">4&#x27;d7</span>;<span class="comment">//I2C 总线产生停止位</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">localparam</span> SCL_DIV = CLK_DIV/<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">localparam</span> OFFSET = SCL_DIV - SCL_DIV/<span class="number">4</span>;<span class="comment">//设置I2C总线的SCL时钟的偏移，以满足SCL和SDA的时序要求，外部的SCL延迟内部的半周期的四分之三</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] IIC_S = <span class="number">4&#x27;d0</span>; <span class="comment">//I2C 状态机</span></span><br><span class="line"><span class="comment">//generate  scl</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">15</span>:<span class="number">0</span>] clkdiv = <span class="number">16&#x27;d0</span>;   <span class="comment">//I2C 时钟分频寄存器</span></span><br><span class="line"><span class="keyword">reg</span> scl_r      = <span class="number">1&#x27;b1</span>;       <span class="comment">//I2C控制器的SCL内部时钟</span></span><br><span class="line"><span class="keyword">reg</span> sda_o      = <span class="number">1&#x27;b0</span>;       <span class="comment">//I2C控制器的SDA</span></span><br><span class="line"><span class="keyword">reg</span> scl_clk    = <span class="number">1&#x27;b0</span>;       <span class="comment">//I2C控制器内部SCL时钟，与外部时钟存在OFFSET参数设置的相位偏移</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] sda_r = <span class="number">8&#x27;d0</span>;      <span class="comment">//发送寄存器</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] sda_i_r = <span class="number">8&#x27;d0</span>;    <span class="comment">//接收寄存器</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] wcnt = <span class="number">8&#x27;d0</span>;       <span class="comment">//发送数据计数器，以byte为单位</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] rcnt = <span class="number">8&#x27;d0</span>;       <span class="comment">//接收数据计数器，以byte为单位</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] bcnt = <span class="number">3&#x27;d0</span>;       <span class="comment">//bit计数器</span></span><br><span class="line"><span class="keyword">reg</span>  rd_req = <span class="number">1&#x27;b0</span>;          <span class="comment">//读请求，当判断到需要读数据，内部状态机中设置1</span></span><br><span class="line"><span class="keyword">wire</span> sda_i;                  <span class="comment">//sda 输入</span></span><br><span class="line"><span class="keyword">wire</span> scl_offset;             <span class="comment">//scl 时钟偏移控制</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span>  sda_i   = (IO_iic_sda == <span class="number">1&#x27;b0</span>) ?  <span class="number">1&#x27;b0</span> : <span class="number">1&#x27;b1</span>;  <span class="comment">//读总线</span></span><br><span class="line"><span class="keyword">assign</span>  IO_iic_sda = (sda_o == <span class="number">1&#x27;b0</span>) ?  <span class="number">1&#x27;b0</span> : <span class="number">1&#x27;bz</span>;    <span class="comment">//写总线，1&#x27;bz代表高阻，I2C外部通过上拉电阻，实现总线的高电平</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//scl 时钟分频器</span></span><br><span class="line"><span class="keyword">always</span>@(<span class="keyword">posedge</span> I_clk)</span><br><span class="line">    <span class="keyword">if</span>(clkdiv &lt; SCL_DIV)</span><br><span class="line">        clkdiv &lt;= clkdiv + <span class="number">1&#x27;b1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        clkdiv &lt;= <span class="number">16&#x27;d0</span>;</span><br><span class="line">        scl_clk &lt;= !scl_clk;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span>  scl_offset  = (clkdiv == OFFSET);<span class="comment">//设置scl_offset的时间参数</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> I_clk) O_iic_scl &lt;=  scl_offset ?  scl_r : O_iic_scl; <span class="comment">//O_iic_scl延迟scl_offset时间的scl_r</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//采集I2C 数据总线sda</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> I_clk) IO_iic_sda_dg &lt;= sda_i;</span><br><span class="line"></span><br><span class="line"><span class="comment">//当IIC_S状态机处于，同时空闲状态，设置SCL为高电平，同时也是空闲，停止状态，用于产生起始位和停止位时序，否则寄存scl_clk时钟</span></span><br><span class="line"><span class="keyword">always</span> @(*)</span><br><span class="line">    <span class="keyword">if</span>(IIC_S == IDLE || IIC_S == STOP1 || IIC_S == STOP2)</span><br><span class="line">        scl_r &lt;= <span class="number">1&#x27;b1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        scl_r &lt;= scl_clk;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//当进入IIC_S状态为启动、停止设置sda=0，结合scl产生起始位，或者(IIC_S == R_ACK &amp;&amp; (rcnt != I_rd_cnt) sda=0，用于产生读操作的ACK</span></span><br><span class="line"><span class="keyword">always</span> @(*)</span><br><span class="line">    <span class="keyword">if</span>(IIC_S == START || IIC_S == STOP1 || (IIC_S == R_ACK &amp;&amp; (rcnt != I_rd_cnt)))</span><br><span class="line">        sda_o &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(IIC_S == W_WAIT)</span><br><span class="line">        sda_o &lt;= sda_r[<span class="number">7</span>];</span><br><span class="line">    <span class="keyword">else</span>  sda_o &lt;= <span class="number">1&#x27;b1</span>; <span class="comment">//否则其他状态都为1，当(IIC_S == R_ACK &amp;&amp; (rcnt == I_rd_cnt) 产生一个NACK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//I2C数据发送模块，所有的写数据都通过此模块发送</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> scl_clk)</span><br><span class="line">    <span class="keyword">if</span>(IIC_S == W_ACK || IIC_S == START)<span class="keyword">begin</span><span class="comment">//IIC_S=START和W_ACK，把需要发送的数据，寄存到sda_r</span></span><br><span class="line">        sda_r &lt;= I_wr_data[(wcnt*<span class="number">8</span>) +: <span class="number">8</span>];<span class="comment">//寄存需要发发送的数据到sda_r</span></span><br><span class="line">        <span class="keyword">if</span>( rd_req ) sda_r &lt;= &#123;I_wr_data[<span class="number">7</span>:<span class="number">1</span>],<span class="number">1&#x27;b1</span>&#125;;<span class="comment">//对于读操作，rd_req由内部代码产生，当写完第一个数据(器件地址)，后通过判断I_rd_cnt，确认是否数据需要读</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(IIC_S == W_WAIT)<span class="comment">//当W_WAT状态，通过移位操作，把数据发送到数据总线</span></span><br><span class="line">        sda_r &lt;= &#123;sda_r[<span class="number">6</span>:<span class="number">0</span>],<span class="number">1&#x27;b1</span>&#125;;<span class="comment">//移位操作</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        sda_r &lt;= sda_r;</span><br><span class="line"></span><br><span class="line"><span class="comment">//sda data bus read and hold data to O_rd_data register when IIC_S=R_ACK</span></span><br><span class="line"><span class="comment">//I2C数据接收模块，I2C读期间，把数据通过移位操作，移入O_rd_data</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">negedge</span> scl_clk)<span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span>(IIC_S == R_WAIT ) <span class="comment">//当IIC_S == R_WAIT ||IIC_S == W_ACK(如果读操作，第1个BIT是W_ACK这个状态读)启动移位操作</span></span><br><span class="line">        sda_i_r &lt;= &#123;sda_i_r[<span class="number">6</span>:<span class="number">0</span>],sda_i&#125;;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(IIC_S == R_ACK)<span class="comment">//当IIC_S == R_ACK,完成一个BYTE读，把数据保存到O_rd_data</span></span><br><span class="line">        O_rd_data[((rcnt-<span class="number">1&#x27;b1</span>)*<span class="number">8</span>) +: <span class="number">8</span>] &lt;= sda_i_r[<span class="number">7</span>:<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(IIC_S == IDLE)<span class="comment">//空闲状态，重置sda_i_r</span></span><br><span class="line">        sda_i_r &lt;= <span class="number">8&#x27;d0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//总线忙状态</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> scl_clk <span class="keyword">or</span> <span class="keyword">negedge</span> I_rstn )<span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span>(I_rstn == <span class="number">1&#x27;b0</span>)</span><br><span class="line">        O_iic_busy &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>((I_iic_req == <span class="number">1&#x27;b1</span> || rd_req == <span class="number">1&#x27;b1</span> || O_iic_bus_error))<span class="comment">//I_iic_req == 1&#x27;b1 || rd_req == 1&#x27;b1总线进入忙状态</span></span><br><span class="line">            O_iic_busy &lt;= <span class="number">1&#x27;b1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(IIC_S == IDLE)</span><br><span class="line">            O_iic_busy &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//总线忙状态</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">negedge</span> scl_clk <span class="keyword">or</span> <span class="keyword">negedge</span> I_rstn )<span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span>(I_rstn == <span class="number">1&#x27;b0</span>)</span><br><span class="line">        O_iic_bus_error &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>(IIC_S  == W_ACK &amp;&amp; sda_i == <span class="number">1&#x27;b1</span>)<span class="comment">//I_iic_req == 1&#x27;b1 || rd_req == 1&#x27;b1总线进入忙状态</span></span><br><span class="line">            O_iic_bus_error &lt;= <span class="number">1&#x27;b1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(I_iic_req == <span class="number">0</span>)</span><br><span class="line">            O_iic_bus_error &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//I2C Master控制器状态机</span></span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> scl_clk <span class="keyword">or</span> <span class="keyword">negedge</span> I_rstn )<span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>(I_rstn == <span class="number">1&#x27;b0</span>)<span class="keyword">begin</span> <span class="comment">//异步复位，复位相关寄存器</span></span><br><span class="line">           wcnt     &lt;= <span class="number">8&#x27;d0</span>;</span><br><span class="line">           rcnt     &lt;= <span class="number">8&#x27;d0</span>;</span><br><span class="line">           rd_req   &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">           IIC_S    &lt;= IDLE;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span>(IIC_S) <span class="comment">//sda = 1 scl =1</span></span><br><span class="line">        IDLE:<span class="keyword">begin</span><span class="comment">//在空闲状态，sda=1 scl=1</span></span><br><span class="line">           <span class="keyword">if</span>(I_iic_req == <span class="number">1&#x27;b1</span> || rd_req == <span class="number">1&#x27;b1</span>) <span class="comment">//当I_iic_req == 1&#x27;b1代表启动传输 当 rd_req == 1&#x27;b1 代表读操作需要产生repeated start 重复启动</span></span><br><span class="line">              IIC_S  &lt;= START; <span class="comment">//进入START状态</span></span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">              wcnt &lt;= <span class="number">8&#x27;d0</span>; <span class="comment">//复位计数器</span></span><br><span class="line">              rcnt &lt;= <span class="number">8&#x27;d0</span>; <span class="comment">//复位计数器</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        START:<span class="keyword">begin</span> <span class="comment">//这个状态，前面的代码，先设置sda = 0，scl_offset参数设置了scl_clk时钟的偏移，之后 scl_clk =0 即scl =0 产生起始位或者重复起始位</span></span><br><span class="line">           bcnt &lt;= <span class="number">3&#x27;d7</span>; <span class="comment">//设置bcnt的初值</span></span><br><span class="line">           IIC_S  &lt;= W_WAIT;<span class="comment">//进入发送等待</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        W_WAIT:<span class="comment">//等待发送完成，这里发送8bits 数据，写器件地址，写寄存器地址，写数据，都在这个状态完成</span></span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">           <span class="keyword">if</span>(bcnt &gt; <span class="number">3&#x27;d0</span>)<span class="comment">//如果8bits没发送完，直到发送完</span></span><br><span class="line">               bcnt  &lt;= bcnt - <span class="number">1&#x27;b1</span>; <span class="comment">//bcnt计数器，每发送1bit减1</span></span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">begin</span> <span class="comment">//8bits发送完毕</span></span><br><span class="line">               wcnt &lt;= wcnt + <span class="number">1&#x27;b1</span>; <span class="comment">//wcnt计数器，用于记录已经写了多少字节</span></span><br><span class="line">               IIC_S  &lt;= W_ACK;<span class="comment">//进入W_ACK状态</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        W_ACK:<span class="comment">//等待WACK，此阶段，也判断是否有读操作</span></span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">           <span class="keyword">if</span>(wcnt &lt; I_wr_cnt)<span class="keyword">begin</span> <span class="comment">//判断是否所有数据发送(写)完成</span></span><br><span class="line">              bcnt &lt;= <span class="number">3&#x27;d7</span>; <span class="comment">//如果没有写完，重置bcnt</span></span><br><span class="line">              IIC_S &lt;= W_WAIT;<span class="comment">//继续回到W_WAIT等待数据发送(写)完成</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span>(I_rd_cnt &gt; <span class="number">3&#x27;d0</span>)<span class="keyword">begin</span><span class="comment">//I_rd_cnt &gt; 0代表有数据需要读，I_rd_cnt决定了有多少数据需要读</span></span><br><span class="line">              <span class="keyword">if</span>(rd_req == <span class="number">1&#x27;b0</span> &amp;&amp; I_iic_mode == <span class="number">1&#x27;b1</span>)<span class="keyword">begin</span> <span class="comment">//对于第一次写完器件地址，如果I_iic_mode==1代表支持随机读</span></span><br><span class="line">                  rd_req &lt;= <span class="number">1&#x27;b1</span>;<span class="comment">//设置rd_req=1，请求读操作</span></span><br><span class="line">                  IIC_S &lt;= IDLE; <span class="comment">//设置状态进入IDLE，根据rd_req的值会重新产生一次为读操作进行的repeated重复start</span></span><br><span class="line">              <span class="keyword">end</span></span><br><span class="line">              <span class="keyword">else</span> <span class="comment">//如果之前已经完成了repeated重复start，那么读操作进入读数据阶段</span></span><br><span class="line">                  IIC_S &lt;= R_WAIT;<span class="comment">//进入读等待</span></span><br><span class="line">                  bcnt &lt;= <span class="number">3&#x27;d7</span>;<span class="comment">//设置bcnt的初值</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">           <span class="keyword">else</span> <span class="comment">//如果所有的发送完成，也没数据需要读，进入停止状态</span></span><br><span class="line">              IIC_S &lt;= STOP1;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        R_WAIT:<span class="comment">//等待读操作完成</span></span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">           rd_req &lt;= <span class="number">1&#x27;b0</span>;<span class="comment">//重置读请求rd_req=0</span></span><br><span class="line">           bcnt  &lt;= bcnt - <span class="number">1&#x27;b1</span>; <span class="comment">//bit 计数器</span></span><br><span class="line">           <span class="keyword">if</span>(bcnt == <span class="number">3&#x27;d0</span>)<span class="keyword">begin</span> <span class="comment">//当8bits数据读完</span></span><br><span class="line">              rcnt &lt;= (rcnt &lt; I_rd_cnt) ? (rcnt + <span class="number">1&#x27;b1</span>) : rcnt;<span class="comment">//判断是否还有数据需要读</span></span><br><span class="line">              IIC_S  &lt;= R_ACK;<span class="comment">//进入R_ACK</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        R_ACK:<span class="comment">//R_ACK状态产生NACK</span></span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">           bcnt &lt;= <span class="number">3&#x27;d7</span>;<span class="comment">//重置读请求bcnt计数器</span></span><br><span class="line">           IIC_S &lt;= (rcnt &lt; I_rd_cnt) ? R_WAIT : STOP1; <span class="comment">//如果所有数据读完，进入停止状态</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        STOP1:<span class="keyword">begin</span><span class="comment">//产生停止位 sda = 0 scl = 1</span></span><br><span class="line">            rd_req  &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">            IIC_S &lt;= STOP2;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        STOP2:<span class="comment">//产生停止位  sda = 1 scl = 1</span></span><br><span class="line">            IIC_S &lt;= IDLE;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            IIC_S &lt;= IDLE;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
 
     
@@ -295,187 +306,22 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/11/08/FPGA%20%E5%85%AB%E8%82%A1%E6%96%87/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/11/08/FPGA%20%E5%85%AB%E8%82%A1%E6%96%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/11/08/FPGA%20%E5%85%AB%E8%82%A1%E6%96%87/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-11-08 22:05:59 / Modified: 12:23:36" itemprop="dateCreated datePublished" datetime="2024-11-08T22:05:59+08:00">2024-11-08</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="FPGA-八股文"><a href="#FPGA-八股文" class="headerlink" title="FPGA 八股文"></a>FPGA 八股文</h2><h4 id="1、什么叫-FPGA？"><a href="#1、什么叫-FPGA？" class="headerlink" title="1、什么叫 FPGA？"></a>1、什么叫 FPGA？</h4><p>FPGA 是一种可重构电路的芯片，是一种硬件可重构的体系结构。他的英文全称为：Field Programmable Gate Array, 现场可编程逻辑门阵列。</p>
-<h4 id="2、FPGA-设计流程"><a href="#2、FPGA-设计流程" class="headerlink" title="2、FPGA 设计流程"></a>2、FPGA 设计流程</h4><p>以Xilinx Vivado 开发工具为例，主要有以下步骤：</p>
-<p>系统规划、RTL输入、行为仿真、逻辑综合、综合后仿真（可选）、综合后设计分析（时序及资源）、设计实现（包括布局布线及优化）、布线后仿真、板级调试、bitstream 固化。 </p>
-<ol>
-<li>系统规划：在 FPGA 设计项目开始之前，需要进行系统的功能定义和模块的划分。然后根据任务要求（系统的功能和复杂度），对工作速度和器件本身的资源，成本，以及连线的可布性进行评估，从而选择合适的设计方案和器件类型。</li>
-<li>RTL 输入：RTL，Register Transfer Level，直译为寄存器转换级，要描述各级寄存器（时序逻辑中的寄存器），以及寄存器之间的信号的是如何转换的（时序逻辑中的组合逻辑）。通俗来讲，RTL 的输入一般为两种，使用硬件描述语言 Verilog HDL/VHDL 进行编写或者原理图输入。原理图就是比较老的做法了，通过门电路的拖拽连接起来设计系统，所以现在基本都是用语言来描述了。</li>
-<li>行为仿真/功能仿真：在编译前对用户所设计的电路进行逻辑功能验证，此时是没有任何延迟信息的，仅对初步的功能进行检测。</li>
-<li>逻辑综合：综合的含义就是将高级层次的描述转化为低级层次的描述，就目前层次来看，综合优化是指将设计输入编译成基本逻辑单元组成的逻辑连接网表。</li>
-<li>综合后仿真（可选）：综合后仿真检查综合结果是否和原设计一致。仿真时，将综合生成的标准延时文件反标注到综合仿真模型中，可以估计门延时带来的影响，但是无法估计线延时，因此和布线后的实际情况有一定的差距。一般的设计可以省略这一步。</li>
-<li>综合后设计分析（时序及资源）：综合之后会告诉我们，目前的系统设计消耗了多少 FPGA的资源，比如，消耗了多少 LUT、RAM、DSP48,等等。我们可以根据这些报告来选择对设计进行优化。</li>
-<li>设计实现（包括布局布线及优化）：利用实现工具把逻辑映射到目标器件结构的资源中。布局将逻辑网表中的硬件原语和底层单元合理的配置到芯片内部的固有硬件结构上，需要在速度最优与面积最优之间做出选择；布线在布局的基础上，利用芯片内部的各种连线资源，合理正确的连接各个元件。</li>
-<li>布线后仿真：意思与前面的综合后仿真一致，因为此时已经进行了布局布线，所以在时序中包含的延迟信息更真实。能较好地反映芯片的实际工作情况。</li>
-<li>板级调试：产生使用的数据文件（bitstream-比特流文件），然后将编程数据下载到 FPGA芯片中，测试实际运行结果。最好的方式是外接逻辑分析仪查看，但这样需要占用一些 IO接口，而且一般人手头没有逻辑 。那比较实用的方向就是使用内嵌式逻辑分析仪 ILA。</li>
-<li>bitstream 固化：这其实是最最最最后一步了。只有在你确保当前的设计已经完美无瑕可以拿来用的时候，才会把它固化到 FPGA 上。这样，每次上电运行的就变成这个系统了。</li>
-</ol>
-<h4 id="3、对FPGA的理解"><a href="#3、对FPGA的理解" class="headerlink" title="3、对FPGA的理解"></a>3、对FPGA的理解</h4><p>目前 FPGA 的应用主要是三个方向：</p>
-<p>​    <strong>第一个方向，也是传统方向，主要用于通信设备的高速接口电路设计，这一方向主要是用 FPGA 处理高速接口的协议，并完成高速的数据收发和交换。</strong>这类应用通常要求采用具备高速收发接口的 FPGA，同时要求设计者懂得高速接口电路设计和高速数字电路板级设计，具备 EMC/EMI 设计知识，以及较好的模拟电路基础，需要解决在高速收发过程中产生的信号完整性问题。FPGA 最初以及到目前最广的应用就是在通信领域，一方面通信领域需要高速的通信协议处理方式，另一方面通信协议随时在修改，非常不适合做成专门的芯片。因此能够灵活改变功能的 FPGA 就成为首选。到目前为止 FPGA 的一半以上的应用也是在通信行业。</p>
-<p>​    <strong>第二个方向，可以称为数字信号处理方向或者数学计算方向，因为很大程度上这一方向已经大大超出信号处理的范畴。</strong>例如早就在 2006 年就听说老美将 FPGA 用于金融数据分析，后来又见到有将 FPGA 用于医学数据分析的案例。在这一方向要求 FPGA 设计者有一定的数学功底，能够理解并改进较为复杂的数学算法，并利用 FPGA 内部的各种资源使之能够变为实际的运算电路。目前真正投入实用的还是在通信领域的无线信号处理、信道编解码以及图像信号处理等领域，其它领域的研究正在开展中，之所以没有大量实用的主要原因还是因为学金融的、学医学的不了解这玩意。不过最近发现欧美有很多电子工程、计算机类的博士转入到金融行业，开展金融信号处理，相信随着转入的人增加，FPGA 在其它领域的数学计算功能会更好的发挥出来，而我也有意做一些这些方面的研究。不过国内学金融的、学医的恐怕连数学都很少用到，就不用说用 FPGA 来帮助他们完成数学_运算了，这个问题只有再议了。</p>
-<p>​    <strong>第三个方向就是所谓的 SPOC 方向，其实严格意义上这个已经在 FPGA 设计的范畴之内，只不过是利用 FPGA 这个平台搭建的一个嵌入式系统的底层硬件环境，然后设计者主要是在上面进行嵌入式开发而已。</strong></p>
-<h4 id="4、FPGA-内部资源"><a href="#4、FPGA-内部资源" class="headerlink" title="4、FPGA 内部资源"></a>4、FPGA 内部资源</h4><p>目前主流的 FPGA 都采用了 SRAM 工艺的查找表 (LUT)结构，LUM 本质上就是一个 RAM。FPGA 内部组成部分主要有：可编辑逻辑输入/输出块 (IOB)、可配置逻辑块 (CLB)、嵌入式块 RAM (BRAM)、丰富的布线资源、底层内嵌功能资源、内嵌专用内核资源等。</p>
-<p>(1)可编程输入/输出块：为了便于管理和适应多种电器标准，FPGA 的 IOB 被划分为若干个组 (bank)，每个 bank 的接口标准由其接口电压 VCCO 决定，一个 bank 只能有一种 VCCO，但不同 bank 的 VCCO 可以不同。只有相同电气标准的端口才能连接在一起，VCCO 电压相同是接口标准的基本条件。</p>
-<p>(2)可配置逻辑块：由查找表和可编程寄存器组成，查找表完成纯组合逻辑功能，内部寄存器可配置成触发器或锁存器。</p>
-<p>(3)嵌入式块 RAM：可以配置成单端口 RAM、双端口 RAM、内容地址存储器 (CAM) 以及 FIFO等常用存储结构。</p>
-<p>(4)丰富的布线资源：布线资源连通 FPGA 内部的所有单元，而连线的长度和工艺决定着信号在连线上的驱动能力和传输速度。主要分为四类：全局布线资源、长线资源、短线资源、分布式布线资源。</p>
-<p>(5)底层内嵌的功能单元：主要包括 DLL、PLL、DSP、CPU 等，现在越来越丰富的内嵌的功能单元，使得 FPGA 成为了系统级的设计工具，使其具备了软硬件联合设计的能力，逐步向SOC 平台过渡。</p>
-<p>(6)内嵌专用硬核资源：内嵌的专用硬核是相对底层软核而言的，指 FPGA 处理能力强大的硬核，等效于 ASIC 电路。主要有乘法器、串并收发器、PCI-E、以太网控制器等。</p>
-<h4 id="5、查找表法-LUT"><a href="#5、查找表法-LUT" class="headerlink" title="5、查找表法 LUT"></a>5、查找表法 LUT</h4><p>查找表 (look-up-table) 简称 LUT，本质上是一个 RAM 。</p>
-<p>目前 FPGA 中多使用4输入的 LUT，所以每一个 LUT 可以看成一个有4位地址线的16x1的 RAM。当用户通过原理图或者 HDL 语言描述了一个逻辑电路以后，FPGA 开发软件会自动计算逻辑电路的所有可能的结果，并把结果实现写入 RAM，这样，每输入一个信号进行逻辑运算就等于输入一个地址进行查表，找出地址对应的内容，然后输出即可。</p>
-<p>6、可编程逻辑块 （Configurable Logic Block）CLB</p>
-<p>CLB 是FPGA 内的基本逻辑单元。CLB 的实际数量和特性会依器件的不同而不同，但是每个 CLB 都包含一个可配置开关矩阵，此剧真由4或6个输入、一些选型电路（多路复用器等）和触发器组成。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/19/C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/19/C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">钰钰宝贝儿</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-09-19 12:42:33" itemprop="dateCreated datePublished" datetime="2022-09-19T12:42:33+08:00">2022-09-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-02-20 21:58:19" itemprop="dateModified" datetime="2024-02-20T21:58:19+08:00">2024-02-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFtkpAH"><img src="https://s11.ax1x.com/2024/02/20/pFtkpAH.jpg" alt="pFtkpAH.jpg"></a></p>
-<p>0.0</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
